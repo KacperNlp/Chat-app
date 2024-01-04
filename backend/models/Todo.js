@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const todoSchema = new Schema({
-  name: {
+  content: {
     type: String,
   },
   done: {

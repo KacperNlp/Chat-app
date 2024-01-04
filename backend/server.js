@@ -7,7 +7,7 @@ const logger = require("morgan");
 const cors = require("cors");
 
 const config = require("./config/Config");
-const routes = require("./routes/Routes");
+const tasksRoutes = require("./routes/TasksRoutes");
 
 const app = express();
 
@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/todos", routes);
+app.use("/todos", tasksRoutes);
 
 app.use((req, res, next) => {
   next(createError(404));

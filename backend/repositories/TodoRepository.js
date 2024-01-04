@@ -5,8 +5,8 @@ class TodoRepository {
     this.model = model;
   }
 
-  create(name) {
-    const newTodo = { name, done: false };
+  create(content) {
+    const newTodo = { content, done: false };
     const todo = new this.model(newTodo);
 
     return todo.save();
@@ -27,7 +27,7 @@ class TodoRepository {
   updateById(id, object) {
     const query = { _id: id };
     return this.model.findOneAndUpdate(query, {
-      $set: { name: object.name, done: object.done },
+      $set: { content: object.content, done: object.done },
     });
   }
 }

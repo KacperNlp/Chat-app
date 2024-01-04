@@ -15,9 +15,9 @@ app.get("/", (req, res) => {
 
 // add a todo item
 app.post("/", (req, res) => {
-  const { name } = req.body;
+  const { content } = req.body;
   repository
-    .create(name)
+    .create(content)
     .then((todo) => {
       res.json(todo);
     })
@@ -40,7 +40,7 @@ app.delete("/:id", (req, res) => {
 //update a todo item
 app.put("/:id", (req, res) => {
   const { id } = req.params;
-  const todo = { name: req.body.name, done: req.body.done };
+  const todo = { content: req.body.content, done: req.body.done };
   repository
     .updateById(id, todo)
     .then(res.status(200).json([]))
