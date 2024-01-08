@@ -13,8 +13,16 @@ interface StoreState {
     tasks: TaskInterface[]
 }
 
+interface RegisterForm {
+    username: string,
+    email: string,
+    password: string,
+    passwordRepeat: string,
+}
+
 export type {
     TaskInterface,
     NewTaskInterface,
-    StoreState
+    StoreState,
+    RegisterForm
 }

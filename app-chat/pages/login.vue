@@ -1,9 +1,9 @@
 <template>
   <div>
-    <el-card shadow="always">
+    <el-card shadow="always" label-position="top">
       <el-form v-model="loginForm">
         <el-form-item label="Login">
-          <el-input v-model="loginForm.login" />
+          <el-input v-model="loginForm.username" />
         </el-form-item>
         <el-form-item label="Password">
           <el-input v-model="loginForm.password" type="password" />
@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 const loginForm = ref({
-  login: "",
+  username: "",
   password: "",
 });
 

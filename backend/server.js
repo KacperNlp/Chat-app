@@ -2,12 +2,16 @@ const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 
 const config = require("./config/Config");
+
+//routes
 const tasksRoutes = require("./routes/TasksRoutes");
+const userRoutes = require("./routes/UserRoutes");
 
 const app = express();
 
@@ -16,6 +20,7 @@ mongoose.connect(config.DB, {
   useUnifiedTopology: true,
 });
 
+app.use(bodyParser.json());
 app.use(cors());
 
 app.use(logger("dev"));
@@ -25,6 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/todos", tasksRoutes);
+app.use("/user", userRoutes);
 
 app.use((req, res, next) => {
   next(createError(404));
