@@ -9,22 +9,53 @@ class UserRepository {
     this.model = model;
   }
 
-  async createNewUser(newUserData) {
+  async createNewUser(res, newUserData) {
     const { username, email } = newUserData;
 
     const isUserNameTaken = await this.model.findOne({ username });
     const isEmailNameTaken = await this.model.findOne({ email });
 
     if (isUserNameTaken) {
-      throw new Error("This username is taken!");
+      return res.status(400).send({
+        type: "username",
+        msg: "This username is taken!",
+      });
     }
 
     if (isEmailNameTaken) {
-      throw new Error("This e-mail is taken!");
+      return res.status(400).send({
+        type: "email",
+        msg: "This e-mail is taken!",
+      });
     }
 
     const newUser = this.model(newUserData);
     return newUser.save();
+  }
+
+  async loginUser(req, res) {
+    console.log(this);
+    await this.model.findOne(req.body, function (err, user) {
+      if (err) {
+        return res.json({
+          status: 0,
+          message: err,
+        });
+      }
+
+      if (!err) {
+        return res.json({
+          status: 0,
+          message: "Not found!",
+        });
+      }
+
+      return res.json({
+        status: 200,
+        id: user._id,
+        message: "Success!",
+      });
+    });
   }
 }
 

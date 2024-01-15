@@ -1,3 +1,12 @@
+enum FieldTypes {
+    Username = 'username',
+    Email = 'email',
+    Password = 'password',
+    PasswordRepeat = 'passwordRepeat',
+}
+
+const { Username, Email, Password, PasswordRepeat } = FieldTypes;
+
 interface TaskInterface {
     _id: string
     content: string;
@@ -20,9 +29,26 @@ interface RegisterForm {
     passwordRepeat: string,
 }
 
+interface LoginForm {
+    username: string,
+    password: string
+}
+
+interface RegisterFormValidation {
+    response: {
+        status: number;
+        data: {
+            type: FieldTypes.Username | FieldTypes.Email | FieldTypes.Password | FieldTypes.PasswordRepeat,
+            msg: string
+        }
+    }
+}
+
 export type {
     TaskInterface,
     NewTaskInterface,
     StoreState,
-    RegisterForm
+    LoginForm,
+    RegisterForm,
+    RegisterFormValidation
 }

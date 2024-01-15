@@ -5,13 +5,11 @@ const repository = require("../repositories/UserRepository");
 //middlewares
 const userMiddleware = require("../middleware/user");
 
-router.post("/login", (req, res) => {
-  console.log("Login!");
-});
+router.post("/login", repository.loginUser);
 
 router.post("/register", userMiddleware.validateRegister, (req, res) => {
   repository
-    .createNewUser(req.body)
+    .createNewUser(res, req.body)
     .then((todo) => {
       res.json(todo);
     })
