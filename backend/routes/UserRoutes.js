@@ -5,7 +5,7 @@ const repository = require("../repositories/UserRepository");
 //middlewares
 const userMiddleware = require("../middleware/user");
 
-router.post("/login", repository.loginUser);
+router.post("/login", (req, res) => repository.loginUser(req, res));
 
 router.post("/register", userMiddleware.validateRegister, (req, res) => {
   repository

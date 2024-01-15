@@ -36,6 +36,8 @@ const loginForm = reactive({
 async function handleSubmitLogin() {
   try {
     await UserManager.loginUser(loginForm);
+
+    await navigateTo("/");
   } catch (err) {
     console.log(err);
   }

@@ -34,27 +34,24 @@ class UserRepository {
   }
 
   async loginUser(req, res) {
-    console.log(this);
-    await this.model.findOne(req.body, function (err, user) {
-      if (err) {
-        return res.json({
-          status: 0,
-          message: err,
-        });
-      }
+    const { username, password } = req.body;
+    const loggedUser = await this.model.findOne({ username });
 
-      if (!err) {
-        return res.json({
-          status: 0,
-          message: "Not found!",
-        });
-      }
-
-      return res.json({
-        status: 200,
-        id: user._id,
-        message: "Success!",
+    if (!loggedUser) {
+      return res.status(400).json({
+        msg: "This user is not exist!",
       });
+    }
+
+    if (loggedUser.password !== password) {
+      return res.status(400).json({
+        msg: "Password is incorrect",
+      });
+    }
+
+    return res.json({
+      status: 200,
+      msg: "Success!",
     });
   }
 }
