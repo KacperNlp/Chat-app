@@ -29,22 +29,31 @@ class UserRepository {
       });
     }
 
-    const newUser = this.model(newUserData);
+    const salt = await bcrypt.genSalt(10);
+    const hashPass = await bcrypt.hashSync(newUserData.password, salt);
+    const userData = { ...newUserData };
+    userData.password = hashPass;
+
+    const newUser = this.model(userData);
     return newUser.save();
   }
 
   async loginUser(req, res) {
     const { username, password } = req.body;
-    const loggedUser = await this.model.findOne({ username });
+    const user = await this.model.findOne({ username });
 
-    if (!loggedUser) {
+    if (!user) {
       return res.status(400).json({
+        type: "username",
         msg: "This user is not exist!",
       });
     }
 
-    if (loggedUser.password !== password) {
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordCorrect) {
       return res.status(400).json({
+        type: "password",
         msg: "Password is incorrect",
       });
     }

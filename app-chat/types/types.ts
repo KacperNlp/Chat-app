@@ -34,6 +34,16 @@ interface LoginForm {
     password: string
 }
 
+interface LoginFormValidation {
+    response: {
+        status: number;
+        data: {
+            type: FieldTypes.Username | FieldTypes.Password,
+            msg: string
+        }
+    }
+}
+
 interface RegisterFormValidation {
     response: {
         status: number;
@@ -50,5 +60,6 @@ export type {
     StoreState,
     LoginForm,
     RegisterForm,
-    RegisterFormValidation
+    LoginFormValidation,
+    RegisterFormValidation,
 }

@@ -47,6 +47,8 @@ definePageMeta({
   layout: "login",
 });
 
+const errorMessage = ref("");
+
 const registerForm = reactive({
   username: "",
   email: "",
@@ -60,8 +62,6 @@ const isRegisterFormValid = reactive({
   password: false,
   passwordRepeat: false,
 });
-
-const errorMessage = ref("");
 
 async function handleSubmitRegister() {
   try {
