@@ -1,4 +1,5 @@
 import ServerManager from '~/services/ServerManager';
+import UserManager from '@/services/UserManager';
 import type { StoreState } from '@/types/types';
 
 export const useWebsiteStore = defineStore('websiteStore', {
@@ -14,7 +15,8 @@ export const useWebsiteStore = defineStore('websiteStore', {
         },
 
         async fetchLoggedUserData(userId: string) {
-            console.log(userId)
+            const { data } = await UserManager.getUserProfileInfo(userId);
+            console.log(data)
         }
     }
 })

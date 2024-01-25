@@ -16,4 +16,6 @@ router.post("/register", userMiddleware.validateRegister, (req, res) => {
     .catch((error) => console.log(error));
 });
 
+router.get("/logged", (req, res) => repository.getLoggedUser(req, res));
+
 module.exports = router;

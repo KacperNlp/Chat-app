@@ -15,6 +15,10 @@ export default abstract class UserManager {
 
     static async getUserProfileInfo(userId: string) {
         const config = useRuntimeConfig();
-        return await axios.get(`${config.public.apiURL}/user`)
+        return await axios.get(`${config.public.apiURL}/user/logged`, {
+            params: {
+                userId
+            }
+        })
     }
 }

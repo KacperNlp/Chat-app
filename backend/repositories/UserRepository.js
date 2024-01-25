@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const uuid = require("uuid");
 const jwt = require("jsonwebtoken");
+const { ObjectId } = require("mongoose").Types;
 
 const User = require("../models/User");
 
@@ -74,6 +75,14 @@ class UserRepository {
       token: accessToken,
       userId: user._id,
     });
+  }
+
+  async getLoggedUser(req, res) {
+    const { userId } = req.query;
+    const user = this.model.findOne({ _id: ObjectId(userId) });
+    console.log(user);
+
+    res.json("done");
   }
 }
 
