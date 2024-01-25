@@ -49,12 +49,13 @@ const isRegisterFormValid = reactive({
 
 async function handleSubmitLogin() {
   try {
-    await UserManager.loginUser(loginForm);
+    const { data } = await UserManager.loginUser(loginForm);
+    const token = useCookie("token");
+    token.value = data?.token;
 
     await navigateTo("/");
   } catch (err) {
     const { response } = err as LoginFormValidation;
-    console.log(err);
 
     if (response.status === 400) {
       errorMessage.value = response.data.msg;

@@ -34,8 +34,16 @@ class UserRepository {
     const userData = { ...newUserData };
     userData.password = hashPass;
 
+    const accessToken = jwt.sign({ username: hashPass }, "secret");
+
     const newUser = this.model(userData);
-    return newUser.save();
+    newUser.save();
+
+    return res.json({
+      status: 200,
+      msg: "Success!",
+      token: accessToken,
+    });
   }
 
   async loginUser(req, res) {
@@ -58,9 +66,12 @@ class UserRepository {
       });
     }
 
+    const accessToken = jwt.sign({ username: user.password }, "secret");
+
     return res.json({
       status: 200,
       msg: "Success!",
+      token: accessToken,
     });
   }
 }

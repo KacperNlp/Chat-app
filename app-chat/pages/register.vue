@@ -67,7 +67,9 @@ async function handleSubmitRegister() {
   try {
     restartValidation();
 
-    await UserManager.registerUser(registerForm);
+    const { data } = await UserManager.registerUser(registerForm);
+    const token = useCookie("token");
+    token.value = data?.token;
 
     await navigateTo("/");
   } catch (err) {

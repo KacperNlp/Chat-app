@@ -10,7 +10,6 @@ export default abstract class UserManager {
 
     static async loginUser(userData: LoginForm) {
         const config = useRuntimeConfig();
-        const result =  await axios.post(`${config.public.apiURL}/user/login`, userData);
-        console.log(result)
+        return await axios.post(`${config.public.apiURL}/user/login`, userData);
     }
 }

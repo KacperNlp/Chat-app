@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-    const isLoggedIn = false;
+    const token = useCookie('token');
 
-    if(!isLoggedIn && to.path !== '/login' && to.path !== '/register') {
+    if(!token.value && to.path !== '/login' && to.path !== '/register') {
         return navigateTo('/login')
     }
 })
