@@ -3,10 +3,20 @@ export default defineI18nConfig(() => ({
     locale: 'pl',
     messages: {
         pl: {
-            footer: 'Aplikacja do czatowania'
+            footer: 'Chat App',
+            logout: 'Wyloguj',
+            nav: {
+                dashboard: 'Panel Główny',
+                users: 'Użytkownicy'
+            }
         },
         en: {
-            footer: 'Chat App'
+            footer: 'Chat App',
+            logout: 'Logout',
+            nav: {
+                dashboard: 'Dashboard',
+                users: 'Users'
+            }
         }
     }
   }))

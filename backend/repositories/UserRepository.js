@@ -72,6 +72,7 @@ class UserRepository {
       status: 200,
       msg: "Success!",
       token: accessToken,
+      userId: user._id,
     });
   }
 }

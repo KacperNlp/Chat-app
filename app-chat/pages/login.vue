@@ -51,7 +51,10 @@ async function handleSubmitLogin() {
   try {
     const { data } = await UserManager.loginUser(loginForm);
     const token = useCookie("token");
+    const userId = useCookie("userId");
+
     token.value = data?.token;
+    userId.value = data?.userId;
 
     await navigateTo("/");
   } catch (err) {

@@ -69,7 +69,10 @@ async function handleSubmitRegister() {
 
     const { data } = await UserManager.registerUser(registerForm);
     const token = useCookie("token");
+    const userId = useCookie("userId");
+
     token.value = data?.token;
+    userId.value = data?.userId;
 
     await navigateTo("/");
   } catch (err) {
