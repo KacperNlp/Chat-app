@@ -15,6 +15,7 @@ export const useWebsiteStore = defineStore('websiteStore', {
     actions: {
         async fetchChannelsList() {
             const { data } = await ServerManager.getChannelsList();
+            console.log(data)
             this.channels = data;
         },
 

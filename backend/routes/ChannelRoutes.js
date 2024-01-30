@@ -15,9 +15,8 @@ app.get("/", (req, res) => {
 
 // create new channel
 app.post("/", (req, res) => {
-  const { content } = req.body;
   repository
-    .create(content)
+    .create(req.body)
     .then((channel) => {
       res.json(channel);
     })

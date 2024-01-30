@@ -5,11 +5,11 @@ class ChannelRepository {
     this.model = model;
   }
 
-  create(content) {
-    const newTodo = { content, done: false };
-    const todo = new this.model(newTodo);
+  create(newChannel) {
+    const channel = { ...newChannel };
+    const channelModel = new this.model(channel);
 
-    return todo.save();
+    return channelModel.save();
   }
 
   findAll() {

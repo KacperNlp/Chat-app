@@ -12,7 +12,7 @@
         $t("home.form.btn")
       }}</el-button>
     </el-form>
-    <AppTasksList />
+    <AppChannelList />
   </main>
 </template>
 
@@ -26,7 +26,7 @@ const userId = useCookie("userId");
 
 const channelForm = ref<NewChannelInterface>({
   name: "",
-  color: "",
+  color: "#000",
   author: userId.value as string,
 });
 
@@ -35,7 +35,7 @@ async function handleSubmitAddTask() {
     await ServerManager.addNewChannel(channelForm.value);
     await store.fetchChannelsList();
     channelForm.value.name = "";
-    channelForm.value.color = "";
+    channelForm.value.color = "#000";
   } catch {
     alert("Something goes wrong!");
   }

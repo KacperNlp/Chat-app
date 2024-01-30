@@ -1,18 +1,12 @@
 <template>
   <div>
-    <div v-for="task in store.tasks">
-      <p>{{ task.content }}</p>
-      <el-button
-        type="danger"
-        :icon="Delete"
-        circle
-        @click="handleClickDeleteTask(task._id)"
-      />
+    <div v-for="channel in store.channels">
+      <p>{{ channel.name }}</p>
+      <div class="w-2 h-2" :style="`background-color: ${channel.color}`"></div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { Delete } from "@element-plus/icons-vue";
 import ServerManager from "@/services/ServerManager";
 
 const store = useWebsiteStore();
@@ -20,7 +14,7 @@ const store = useWebsiteStore();
 async function handleClickDeleteTask(id: string) {
   try {
     await ServerManager.deleteTask(id);
-    await store.fetchTasks();
+    await store.fetchChannelsList();
   } catch {
     alert("Sorry we cannot remove this task!");
   }
