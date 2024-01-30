@@ -8,6 +8,11 @@ export default defineI18nConfig(() => ({
             nav: {
                 dashboard: 'Panel Główny',
                 users: 'Użytkownicy'
+            },
+            user: {
+                dashboard: 'Ustawienia konta',
+                nick: 'Nazwa użytkownika:',
+                role: 'Rola:'
             }
         },
         en: {
@@ -16,6 +21,11 @@ export default defineI18nConfig(() => ({
             nav: {
                 dashboard: 'Dashboard',
                 users: 'Users'
+            },
+            user: {
+                dashboard: 'Account settings',
+                nick: 'Nickname:',
+                role: 'Role:'
             }
         }
     }

@@ -18,8 +18,15 @@ interface NewTaskInterface {
     done: boolean
 }
 
+interface User {
+    username: string,
+    email: string,
+    role: string
+}
+
 interface StoreState {
     tasks: TaskInterface[]
+    loggedUser: User
 }
 
 interface RegisterForm {
@@ -58,6 +65,7 @@ export type {
     TaskInterface,
     NewTaskInterface,
     StoreState,
+    User,
     LoginForm,
     RegisterForm,
     LoginFormValidation,

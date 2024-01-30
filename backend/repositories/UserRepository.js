@@ -79,10 +79,12 @@ class UserRepository {
 
   async getLoggedUser(req, res) {
     const { userId } = req.query;
-    const user = this.model.findOne({ _id: ObjectId(userId) });
-    console.log(user);
+    const user = await this.model.findOne({ _id: ObjectId(userId) });
+    const { username, email, role } = user;
 
-    res.json("done");
+    const loggedUserProps = { username, email, role };
+
+    res.json(loggedUserProps);
   }
 }
 
