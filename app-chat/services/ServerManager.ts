@@ -1,15 +1,16 @@
 import axios from "axios";
-import type { NewTaskInterface } from '@/types/types';
+import type { NewTaskInterface, NewChannelInterface } from '@/types/types';
 
 export default abstract class ServerManager {
-    static async getTasksList() {
+    static async getChannelsList() {
         const config = useRuntimeConfig();
-        return await axios.get(`${config.public.apiURL}/todos`);
+        return await axios.get(`${config.public.apiURL}/channels`);
     }
 
-    static async addNewTask(task: NewTaskInterface) {
+    static async addNewChannel(newChannel: NewChannelInterface) {
         const config = useRuntimeConfig();
-        return await axios.post(`${config.public.apiURL}/todos`, task);
+        console.log(newChannel)
+        return await axios.post(`${config.public.apiURL}/channels`, newChannel);
     }
 
     static async deleteTask(id: string) {

@@ -10,7 +10,7 @@ const cors = require("cors");
 const config = require("./config/Config");
 
 //routes
-const tasksRoutes = require("./routes/TasksRoutes");
+const channelRoutes = require("./routes/ChannelRoutes");
 const userRoutes = require("./routes/UserRoutes");
 
 const app = express();
@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/todos", tasksRoutes);
+app.use("/channels", channelRoutes);
 app.use("/user", userRoutes);
 
 app.use((req, res, next) => {

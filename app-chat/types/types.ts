@@ -7,15 +7,22 @@ enum FieldTypes {
 
 const { Username, Email, Password, PasswordRepeat } = FieldTypes;
 
-interface TaskInterface {
+interface ChannelInterface {
     _id: string
-    content: string;
-    done: boolean
+    name: string;
+    color: string,
+    author: string
 }
 
 interface NewTaskInterface {
     content: string;
     done: boolean
+}
+
+interface NewChannelInterface {
+    name: string,
+    color: string,
+    author: string,
 }
 
 interface User {
@@ -25,7 +32,7 @@ interface User {
 }
 
 interface StoreState {
-    tasks: TaskInterface[]
+    channels: ChannelInterface[]
     loggedUser: User
 }
 
@@ -62,8 +69,9 @@ interface RegisterFormValidation {
 }
 
 export type {
-    TaskInterface,
+    ChannelInterface,
     NewTaskInterface,
+    NewChannelInterface,
     StoreState,
     User,
     LoginForm,

@@ -15,7 +15,12 @@ export default defineI18nConfig(() => ({
                 role: 'Rola:'
             },
             home: {
-                title: 'Dostępne Chaty:'
+                title: 'Dostępne Chaty:',
+                form: {
+                    name: 'Nazwa kanału',
+                    color: 'Wybierz kolor kanału',
+                    btn: 'Stwórz kanał!'
+                }
             }
         },
         en: {
@@ -31,7 +36,12 @@ export default defineI18nConfig(() => ({
                 role: 'Role:'
             },
             home: {
-                title: 'Available Chats:'
+                title: 'Available Chats:',
+                form: {
+                    name: 'Channel name',
+                    color: 'Pick the color of channel',
+                    btn: 'Create channel!'
+                }
             }
         }
     }

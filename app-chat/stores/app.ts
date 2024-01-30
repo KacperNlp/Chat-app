@@ -4,7 +4,7 @@ import type { StoreState } from '@/types/types';
 
 export const useWebsiteStore = defineStore('websiteStore', {
     state: (): StoreState => ({
-        tasks: [],
+        channels: [],
         loggedUser: {
             username: '',
             email: '',
@@ -13,9 +13,9 @@ export const useWebsiteStore = defineStore('websiteStore', {
     }),
 
     actions: {
-        async fetchTasks() {
-            const { data } = await ServerManager.getTasksList();
-            this.tasks = data;
+        async fetchChannelsList() {
+            const { data } = await ServerManager.getChannelsList();
+            this.channels = data;
         },
 
         async fetchLoggedUserData(userId: string) {
