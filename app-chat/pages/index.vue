@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1>ChatApp</h1>
+    <AppPageTitle class="mb-3 text-center">{{ $t("home.title") }}</AppPageTitle>
     <el-form v-model="taskForm">
       <el-form-item label="Treść zadania">
         <el-input v-model="taskForm.content" />

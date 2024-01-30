@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>{{ $t("user.dashboard") }}</h1>
+    <AppPageTitle class="mb-3 text-center">{{
+      $t("user.dashboard")
+    }}</AppPageTitle>
     <div class="flex gap-2">
       <span>{{ $t("user.nick") }}</span>
       <span>{{ store.loggedUser.username }}</span>

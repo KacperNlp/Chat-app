@@ -13,6 +13,9 @@ export default defineI18nConfig(() => ({
                 dashboard: 'Ustawienia konta',
                 nick: 'Nazwa użytkownika:',
                 role: 'Rola:'
+            },
+            home: {
+                title: 'Dostępne Chaty:'
             }
         },
         en: {
@@ -26,6 +29,9 @@ export default defineI18nConfig(() => ({
                 dashboard: 'Account settings',
                 nick: 'Nickname:',
                 role: 'Role:'
+            },
+            home: {
+                title: 'Available Chats:'
             }
         }
     }
