@@ -5,13 +5,12 @@ enum FieldTypes {
     PasswordRepeat = 'passwordRepeat',
 }
 
-const { Username, Email, Password, PasswordRepeat } = FieldTypes;
-
 interface ChannelInterface {
     _id: string
     name: string;
     color: string,
-    author: string
+    author: string,
+    addedUsers: string[]
 }
 
 interface NewTaskInterface {
@@ -23,17 +22,20 @@ interface NewChannelInterface {
     name: string,
     color: string,
     author: string,
+    addedUsers: string[]
 }
 
 interface User {
     username: string,
     email: string,
-    role: string
+    role: string,
+    id: String
 }
 
 interface StoreState {
     channels: ChannelInterface[]
     loggedUser: User
+    users: User[]
 }
 
 interface RegisterForm {

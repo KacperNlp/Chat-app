@@ -7,6 +7,7 @@ class ChannelRepository {
 
   create(newChannel) {
     const channel = { ...newChannel };
+    console.log(channel);
     const channelModel = new this.model(channel);
 
     return channelModel.save();

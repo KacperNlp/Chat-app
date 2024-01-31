@@ -1,5 +1,6 @@
 import ServerManager from '~/services/ServerManager';
 import UserManager from '@/services/UserManager';
+import UsersManager from '~/services/UsersManager';
 import type { StoreState } from '@/types/types';
 
 export const useWebsiteStore = defineStore('websiteStore', {
@@ -8,20 +9,26 @@ export const useWebsiteStore = defineStore('websiteStore', {
         loggedUser: {
             username: '',
             email: '',
-            role: ''
+            role: '',
+            id: ''
         },
+        users: []
     }),
 
     actions: {
         async fetchChannelsList() {
             const { data } = await ServerManager.getChannelsList();
-            console.log(data)
             this.channels = data;
         },
 
         async fetchLoggedUserData(userId: string) {
             const { data } = await UserManager.getUserProfileInfo(userId);
             this.loggedUser = data;
+        },
+
+        async fetchAllUsers() {
+            const { data } = await UsersManager.getAllUsers();
+            this.users = data;
         }
     }
 })
