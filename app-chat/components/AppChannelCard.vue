@@ -1,9 +1,16 @@
 <template>
-  <el-card shadow="always">
+  <el-card shadow="always" :class="{ 'is-your-channel': isUserChannel }">
     <div class="relative flex flex-col">
       <p class="mb-2 font-semibold text-md md:text-lg xl:text-xl">{{ name }}</p>
       <div>
         <span>Users: {{ numberOfUsers }}</span>
+      </div>
+      <div v-if="isUserChannel" class="mt-2">
+        <el-button
+          type="danger"
+          @click.prevent="handleClickOpenChannelSettings"
+          >{{ $t("home.channel.btnSettings") }}</el-button
+        >
       </div>
       <div
         class="absolute top-0 right-0 w-4 h-4 rounded-lg"
@@ -27,11 +34,24 @@ interface Props {
   id: string;
 }
 
+const userId = useCookie("userId");
+
 const props = defineProps<Props>();
 
-const numberOfUsers = computed(() => props.users.length);
+const numberOfUsers = computed(() => props.users.length + 1);
+const isUserChannel = computed(() => props.authorId === userId.value);
+
+function handleClickOpenChannelSettings() {
+  navigateTo(`/channel/edit/${props.id}`);
+}
 
 function handleClickOpenChannel() {
   navigateTo(`/channel/${props.id}`);
 }
 </script>
+
+<style scoped>
+.is-your-channel {
+  border-color: #409eff;
+}
+</style>

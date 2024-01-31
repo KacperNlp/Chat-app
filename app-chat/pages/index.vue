@@ -53,7 +53,7 @@ const usersList = computed(() => {
 async function handleSubmitCreateNewChannel() {
   try {
     await ServerManager.addNewChannel(channelForm.value);
-    await store.fetchChannelsList();
+    await store.fetchChannelsList(userId.value);
     channelForm.value.name = "";
     channelForm.value.color = "#000";
     channelForm.value.addedUsers = [];

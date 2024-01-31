@@ -23,6 +23,7 @@ export default defineI18nConfig(() => ({
                     btn: 'Stwórz kanał!'
                 },
                 channel: {
+                    btnSettings: 'Ustawienia kanału',
                     btn: 'Wejdź do chatu'
                 }
             }
@@ -48,6 +49,7 @@ export default defineI18nConfig(() => ({
                     btn: 'Create channel!'
                 },
                 channel: {
+                    btnSettings: 'Channel settings',
                     btn: 'Open the chat'
                 }
             }
