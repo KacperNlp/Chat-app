@@ -21,6 +21,9 @@ export default defineI18nConfig(() => ({
                     color: 'Wybierz kolor kanału',
                     users: 'Dodaj użytkowników do kanału',
                     btn: 'Stwórz kanał!'
+                },
+                channel: {
+                    btn: 'Wejdź do chatu'
                 }
             }
         },
@@ -43,6 +46,9 @@ export default defineI18nConfig(() => ({
                     color: 'Pick the color of channel',
                     users: 'Add users to channel',
                     btn: 'Create channel!'
+                },
+                channel: {
+                    btn: 'Open the chat'
                 }
             }
         }

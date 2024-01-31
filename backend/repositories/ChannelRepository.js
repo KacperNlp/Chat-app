@@ -13,8 +13,14 @@ class ChannelRepository {
     return channelModel.save();
   }
 
-  findAll() {
-    return this.model.find();
+  async findAll(req) {
+    const { userId } = req.query;
+    const channels = (await this.model.find()).filter(
+      (channel) =>
+        channel.author === userId || channel.addedUsers.includes(userId)
+    );
+
+    return channels;
   }
 }
 

@@ -62,6 +62,9 @@ async function handleSubmitCreateNewChannel() {
   }
 }
 
-await Promise.all([store.fetchChannelsList(), store.fetchAllUsers()]);
+await Promise.all([
+  store.fetchChannelsList(userId.value),
+  store.fetchAllUsers(),
+]);
 console.log(store.users);
 </script>

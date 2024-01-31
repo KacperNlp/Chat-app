@@ -6,7 +6,7 @@ const repository = require("../repositories/ChannelRepository");
 // get all channels
 app.get("/", (req, res) => {
   repository
-    .findAll()
+    .findAll(req)
     .then((channels) => {
       res.json(channels);
     })

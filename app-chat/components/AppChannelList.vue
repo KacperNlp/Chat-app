@@ -6,6 +6,7 @@
         :color="channel.color"
         :users="channel.addedUsers"
         :author-id="channel.author"
+        :id="channel._id"
       />
     </div>
   </div>
