@@ -41,7 +41,7 @@ const userId = useCookie("userId");
 
 const channelForm = ref<NewChannelInterface>({
   name: "",
-  color: "#000",
+  color: "#000000",
   author: userId.value as string,
   addedUsers: [],
 });
@@ -53,18 +53,18 @@ const usersList = computed(() => {
 async function handleSubmitCreateNewChannel() {
   try {
     await ServerManager.addNewChannel(channelForm.value);
-    await store.fetchChannelsList(userId.value);
+    if (!!userId.value) await store.fetchChannelsList(userId.value);
     channelForm.value.name = "";
-    channelForm.value.color = "#000";
+    channelForm.value.color = "#000000";
     channelForm.value.addedUsers = [];
   } catch {
     alert("Something goes wrong!");
   }
 }
 
-await Promise.all([
-  store.fetchChannelsList(userId.value),
-  store.fetchAllUsers(),
-]);
-console.log(store.users);
+if (!!userId.value)
+  await Promise.all([
+    store.fetchChannelsList(userId.value),
+    store.fetchAllUsers(),
+  ]);
 </script>

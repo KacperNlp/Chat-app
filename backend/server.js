@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
+const { Server } = require("socket.io");
 
 const config = require("./config/Config");
 
@@ -46,8 +47,29 @@ app.use((err, req, res) => {
   res.render("error");
 });
 
-app.listen(config.APP_PORT, () => {
+const server = app.listen(config.APP_PORT, () => {
   console.log(`Apliakcja nasłuchuje na porcie: ${config.APP_PORT}`);
+});
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:8080",
+  },
+});
+
+io.on("connection", function (socket) {
+  const privateChannelId = "123#12";
+  console.log("connect");
+
+  socket.join(privateChannelId);
+  socket.on("private-message", (data) => {
+    io.to(privateChannelId).emit("private-message", data);
+  });
+
+  socket.on("disconnect", () => {
+    socket.leave(privateChannelId);
+    console.log("disconnect");
+  });
 });
 
 module.exports = app;
