@@ -7,16 +7,21 @@
 <script setup lang="ts">
 import socket from "~/socket.io";
 
-const store = useWebsiteStore();
+const router = useRouter();
 const userId = useCookie("userId");
 
-const privateChannelId = ref("123#12");
+const data = {
+  roomId: router.currentRoute.value.params.id,
+  user: userId.value,
+};
 
 onBeforeUnmount(() => {
-  socket.disconnect();
+  socket.emit("leaveRoom", data);
 });
 
-socket.auth = { username: userId.value };
-socket.connect();
-socket.emit("join-private-channel", privateChannelId.value);
+function joinRoom() {
+  socket.emit("joinRoom", data);
+}
+
+joinRoom();
 </script>

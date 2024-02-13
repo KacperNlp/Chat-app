@@ -58,17 +58,16 @@ const io = new Server(server, {
 });
 
 io.on("connection", function (socket) {
-  const privateChannelId = "123#12";
-  console.log("connect");
+  socket.on("joinRoom", ({ user, roomId }, callback) => {
+    console.log(`${user} join to room`);
+  });
 
-  socket.join(privateChannelId);
-  socket.on("private-message", (data) => {
-    io.to(privateChannelId).emit("private-message", data);
+  socket.on("leaveRoom", ({ user, roomId }, callback) => {
+    console.log("User leave the room");
   });
 
   socket.on("disconnect", () => {
-    socket.leave(privateChannelId);
-    console.log("disconnect");
+    console.log(`user ${socket.id} disconnected`);
   });
 });
 

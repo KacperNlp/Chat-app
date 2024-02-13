@@ -11,3 +11,16 @@
     </el-footer>
   </el-container>
 </template>
+
+<script setup lang="ts">
+import socket from "~/socket.io";
+
+const userId = useCookie("userId");
+
+onBeforeUnmount(() => {
+  socket.disconnect();
+});
+
+socket.auth = { username: userId.value };
+socket.connect();
+</script>
