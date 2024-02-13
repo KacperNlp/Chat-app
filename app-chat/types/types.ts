@@ -70,6 +70,11 @@ interface RegisterFormValidation {
     }
 }
 
+interface ChatMessage {
+    user: string,
+    text: string
+}
+
 export type {
     ChannelInterface,
     NewTaskInterface,
@@ -80,4 +85,5 @@ export type {
     RegisterForm,
     LoginFormValidation,
     RegisterFormValidation,
+    ChatMessage
 }

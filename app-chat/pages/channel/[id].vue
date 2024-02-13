@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>Kanał!</h1>
+    <AppPageTitle>Kanał!</AppPageTitle>
+    <AppChat :messages="dummyData" />
   </div>
 </template>
 
@@ -9,6 +10,17 @@ import socket from "~/socket.io";
 
 const router = useRouter();
 const userId = useCookie("userId");
+
+const dummyData = [
+  {
+    user: "Adam",
+    text: "Hello, how are you?",
+  },
+  {
+    user: "John",
+    text: "Thanks, fine. And you?",
+  },
+];
 
 const data = {
   roomId: router.currentRoute.value.params.id,
