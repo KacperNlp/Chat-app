@@ -2,9 +2,9 @@
   <section>
     <h2>Chat</h2>
     <div>
-      <div v-for="(message, key) in messages" :key="key">
-        {{ message.user }}
-        {{ message.text }}
+      <div v-for="({ username, message }, key) in messages" :key="key">
+        {{ username }}
+        {{ message }}
       </div>
     </div>
   </section>

@@ -8,6 +8,8 @@ const logger = require("morgan");
 const cors = require("cors");
 const { Server } = require("socket.io");
 
+const channelRepository = require("./repositories/ChannelRepository");
+
 const config = require("./config/Config");
 
 //routes
@@ -59,31 +61,33 @@ const io = new Server(server, {
 });
 
 io.on("connection", function (socket) {
-  socket.on("joinRoom", ({ user, roomId }, callback) => {
+  socket.on("joinRoom", ({ userId, roomId }, callback) => {
     try {
       console.log("[socket]", "join room :", roomId);
       socket.join(roomId);
-      socket.to(roomId).emit("user joined", user);
+      socket.to(roomId).emit("user joined", userId);
     } catch (err) {
       console.log("[error] join room ", err);
       socket.emit("error", "couldnt perform requested action");
     }
   });
 
-  socket.on("leaveRoom", ({ user, roomId }, callback) => {
+  socket.on("leaveRoom", ({ userId, roomId }, callback) => {
     try {
       console.log("[socket]", "leave room :", roomId);
       socket.leave(roomId);
-      socket.to(roomId).emit("user left", user);
+      socket.to(roomId).emit("user left", userId);
     } catch (err) {
       console.log("[error] leave room ", err);
       socket.emit("error", "couldnt perform requested action");
     }
   });
 
-  socket.on("send-message", ({ message, user, roomId }) => {
-    console.log("get");
-    socket.to(roomId).emit("receive-message", { message, user });
+  socket.on("send-message", ({ message, userId, username, roomId }) => {
+    const newMessage = { message, userId, username };
+
+    channelRepository.setMessage(newMessage, roomId);
+    socket.to(roomId).emit("receive-message", newMessage);
   });
 
   socket.on("disconnect", () => {

@@ -23,4 +23,13 @@ app.post("/", (req, res) => {
     .catch((error) => console.log(error));
 });
 
+//get message
+app.get("/messages", (req, res) => {
+  console.log("hello");
+  repository
+    .getAllMessagesForChannel(req)
+    .then((messages) => res.json(messages))
+    .catch((error) => console.log(error));
+});
+
 module.exports = app;

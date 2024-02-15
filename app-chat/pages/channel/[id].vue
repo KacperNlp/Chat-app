@@ -15,26 +15,28 @@
 <script setup lang="ts">
 import socket from "~/socket.io";
 import { DArrowRight } from "@element-plus/icons-vue";
+import ChannelManager from "@/services/ChannelManager";
 import type { ChatMessage } from "@/types/types";
 
 const router = useRouter();
 const userId = useCookie("userId");
+const store = useWebsiteStore();
 
 const message = ref("");
 const messages = ref<ChatMessage[]>([]);
 
 const data = {
-  roomId: router.currentRoute.value.params.id,
-  user: userId.value,
+  roomId: router.currentRoute.value.params.id as string,
+  userId: userId.value as string,
+  username: store.loggedUser.username,
 };
 
-socket.on("receive-message", ({ message, user }) => {
+socket.on("receive-message", ({ message, username, userId }) => {
   const newMessage = {
-    user,
-    text: message,
+    username,
+    userId,
+    message,
   };
-  console.log(newMessage);
-  console.log(messages);
 
   messages.value.push(newMessage);
 });
@@ -49,9 +51,12 @@ function joinRoom() {
 
 function handleClickSendMessage() {
   const newMessage = {
-    user: data.user as string,
-    text: message.value,
+    userId: data.userId,
+    username: data.username,
+    message: message.value,
   };
+
+  if (!message.value) return;
 
   socket.emit("send-message", { ...data, message: message.value });
   messages.value.push(newMessage);
@@ -60,4 +65,6 @@ function handleClickSendMessage() {
 }
 
 joinRoom();
+console.log(await ChannelManager.getMessages(data.roomId));
+messages.value = await ChannelManager.getMessages(data.roomId);
 </script>

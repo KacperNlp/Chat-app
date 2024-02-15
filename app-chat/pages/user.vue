@@ -20,7 +20,4 @@
 
 <script setup lang="ts">
 const store = useWebsiteStore();
-const userId = useCookie<string>("userId");
-
-await store.fetchLoggedUserData(userId.value);
 </script>

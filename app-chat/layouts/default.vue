@@ -16,6 +16,7 @@
 import socket from "~/socket.io";
 
 const userId = useCookie("userId");
+const store = useWebsiteStore();
 
 onBeforeUnmount(() => {
   socket.disconnect();
@@ -23,4 +24,6 @@ onBeforeUnmount(() => {
 
 socket.auth = { username: userId.value };
 socket.connect();
+
+if (!!userId.value) await store.fetchLoggedUserData(userId.value);
 </script>

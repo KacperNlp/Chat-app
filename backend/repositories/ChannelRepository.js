@@ -22,6 +22,23 @@ class ChannelRepository {
 
     return channels;
   }
+
+  async getAllMessagesForChannel(req) {
+    const { roomId } = req.query;
+    const channel = await this.model.findById(roomId);
+
+    return channel.messages;
+  }
+
+  async setMessage(newMessage, roomId) {
+    const channel = await this.model.findById(roomId);
+
+    if (channel) {
+      channel.messages.push(newMessage);
+
+      await channel.save();
+    }
+  }
 }
 
 module.exports = new ChannelRepository(Channel);

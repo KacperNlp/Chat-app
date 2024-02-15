@@ -71,8 +71,9 @@ interface RegisterFormValidation {
 }
 
 interface ChatMessage {
-    user: string,
-    text: string
+    username: string
+    userId: string,
+    message: string
 }
 
 export type {

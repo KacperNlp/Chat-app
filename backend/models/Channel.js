@@ -15,6 +15,9 @@ const channelSchema = new Schema({
   addedUsers: {
     type: Array,
   },
+  messages: {
+    type: Array,
+  },
 });
 
 const Channel = mongoose.model("Channel", channelSchema);
