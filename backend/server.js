@@ -53,17 +53,37 @@ const server = app.listen(config.APP_PORT, () => {
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:8080",
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
   },
 });
 
 io.on("connection", function (socket) {
   socket.on("joinRoom", ({ user, roomId }, callback) => {
-    console.log(`${user} join to room`);
+    try {
+      console.log("[socket]", "join room :", roomId);
+      socket.join(roomId);
+      socket.to(roomId).emit("user joined", user);
+    } catch (err) {
+      console.log("[error] join room ", err);
+      socket.emit("error", "couldnt perform requested action");
+    }
   });
 
   socket.on("leaveRoom", ({ user, roomId }, callback) => {
-    console.log("User leave the room");
+    try {
+      console.log("[socket]", "leave room :", roomId);
+      socket.leave(roomId);
+      socket.to(roomId).emit("user left", user);
+    } catch (err) {
+      console.log("[error] leave room ", err);
+      socket.emit("error", "couldnt perform requested action");
+    }
+  });
+
+  socket.on("send-message", ({ message, user, roomId }) => {
+    console.log("get");
+    socket.to(roomId).emit("receive-message", { message, user });
   });
 
   socket.on("disconnect", () => {
