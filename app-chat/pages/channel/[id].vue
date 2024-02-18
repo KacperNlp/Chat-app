@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-full flex flex-col">
     <AppPageTitle class="text-center pt-2">Nazwa kanału</AppPageTitle>
     <AppChat :messages="messages" />
     <div>

@@ -4,10 +4,17 @@
     :class="{ 'is-active': isSelectedChannel }"
     class="p-4 border-b cursor-pointer duration-200"
   >
-    <div class="relative flex flex-col">
-      <p class="mb-2 font-semibold text-md md:text-lg xl:text-xl">{{ name }}</p>
+    <div class="relative flex flex-row items-center gap-4">
+      <img
+        src="/assets/first-post.jpg"
+        :alt="name"
+        class="w-12 h-12 rounded-xl"
+      />
       <div>
-        <span>Users: {{ numberOfUsers }}</span>
+        <span class="block font-semibold text-md md:text-lg xl:text-xl">
+          {{ name }}
+        </span>
+        <span class="text-xs">Users: {{ numberOfUsers }}</span>
       </div>
       <div
         class="absolute top-0 right-0 w-4 h-4 rounded-lg"
