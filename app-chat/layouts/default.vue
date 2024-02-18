@@ -1,11 +1,18 @@
 <template>
-  <el-container>
-    <el-header class="fixed w-full bg-slate-50 z-10 flex">
-      <AppHeader />
-    </el-header>
-    <el-main class="max-w-2xl mx-auto mt-32 w-10/12 min-h-screen">
-      <slot />
-    </el-main>
+  <el-container class="h-screen overflow-hidden">
+    <div class="flex flex-row">
+      <aside class="fixed md:static h-full overflow-y-scroll">
+        <AppChannelList />
+      </aside>
+      <div>
+        <main>
+          <slot />
+        </main>
+        <el-footer class="flex items-center justify-center bg-gray-100">
+          <AppFooter />
+        </el-footer>
+      </div>
+    </div>
     <AddChannelForm
       v-if="isAddChannelFormVisible"
       @close-form="handleClickCloseAddChannelForm"
@@ -18,9 +25,6 @@
       size="large"
       circle
     />
-    <el-footer class="flex items-center justify-center bg-gray-100">
-      <AppFooter />
-    </el-footer>
   </el-container>
 </template>
 
