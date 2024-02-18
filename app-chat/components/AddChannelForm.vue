@@ -78,10 +78,4 @@ async function handleSubmitCreateNewChannel() {
 function handleClickCloseFrom() {
   emit("closeForm");
 }
-
-if (!!userId.value)
-  await Promise.all([
-    store.fetchChannelsList(userId.value),
-    store.fetchAllUsers(),
-  ]);
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-8">
+  <div class="flex flex-col">
     <div v-for="channel in store.channels">
       <AppChannelCard
         :name="channel.name"

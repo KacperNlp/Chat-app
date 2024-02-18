@@ -1,14 +1,16 @@
 <template>
   <el-container class="h-screen overflow-hidden">
-    <div class="flex flex-row">
-      <aside class="fixed md:static h-full overflow-y-scroll">
+    <div class="flex flex-row w-full">
+      <aside class="fixed md:static h-full w-80 overflow-y-scroll">
         <AppChannelList />
       </aside>
-      <div>
-        <main>
+      <div class="grow flex flex-col">
+        <main class="grow">
           <slot />
         </main>
-        <el-footer class="flex items-center justify-center bg-gray-100">
+        <el-footer
+          class="flex items-center justify-center !h-12 bg-gray-200 text-xs"
+        >
           <AppFooter />
         </el-footer>
       </div>
@@ -52,5 +54,10 @@ function handleClickCloseAddChannelForm() {
 socket.auth = { username: userId.value };
 socket.connect();
 
-if (!!userId.value) await store.fetchLoggedUserData(userId.value);
+if (!!userId.value)
+  await Promise.all([
+    store.fetchChannelsList(userId.value),
+    store.fetchAllUsers(),
+    store.fetchLoggedUserData(userId.value),
+  ]);
 </script>

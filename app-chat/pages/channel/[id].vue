@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AppPageTitle>Kanał!</AppPageTitle>
+    <AppPageTitle class="text-center pt-2">Nazwa kanału</AppPageTitle>
     <AppChat :messages="messages" />
     <div>
       <el-input v-model="message" placeholder="Your message...">
