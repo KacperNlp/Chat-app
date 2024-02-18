@@ -1,7 +1,9 @@
 <template>
   <section>
     <h2 class="text-center mt-4">Chat</h2>
-    <div class="h-[60dvh] md:h-[60vh] bg-gray-100 mt-8 p-4 rounded-t-xl">
+    <div
+      class="h-[60dvh] md:h-[60vh] overflow-y-scroll bg-gray-100 mt-8 p-4 rounded-t-xl"
+    >
       <div
         v-for="({ username, message, userId }, key) in messages"
         :key="key"
