@@ -4,7 +4,7 @@
       <aside class="fixed md:static h-full w-80 overflow-y-scroll">
         <AppChannelList />
       </aside>
-      <div class="grow flex flex-col">
+      <div class="grow flex flex-col max-h-dvh">
         <main class="grow">
           <slot />
         </main>
