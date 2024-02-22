@@ -1,7 +1,10 @@
 <template>
   <el-container class="h-screen overflow-hidden">
     <div class="flex flex-row w-full">
-      <aside class="fixed md:static h-full w-80 overflow-y-scroll">
+      <aside
+        class="fixed left-[-100%] md:static h-full w-80 overflow-y-scroll duration-300 bg-slate-200"
+        :class="{ 'is-visible': isChannelsListVisible }"
+      >
         <AppChannelList />
       </aside>
       <div class="grow flex flex-col max-h-dvh">
@@ -21,9 +24,17 @@
     />
     <el-button
       @click="handleClickOpenAddChannelForm"
-      class="fixed bottom-6 right-6 z-[99] !text-xl"
+      class="fixed top-1 md:top-2 right-2 md:right-8 z-[99] !text-xl"
       type="primary"
       :icon="ChatRound"
+      size="large"
+      circle
+    />
+    <el-button
+      @click="handleClickToggleChannels"
+      class="fixed md:!hidden top-1 left-2 z-[99] !text-xl"
+      type="primary"
+      :icon="Expand"
       size="large"
       circle
     />
@@ -31,13 +42,14 @@
 </template>
 
 <script setup lang="ts">
-import { ChatRound } from "@element-plus/icons-vue";
+import { ChatRound, Expand } from "@element-plus/icons-vue";
 import socket from "~/socket.io";
 
 const userId = useCookie("userId");
 const store = useWebsiteStore();
 
 const isAddChannelFormVisible = ref(false);
+const isChannelsListVisible = ref(false);
 
 onBeforeUnmount(() => {
   socket.disconnect();
@@ -51,6 +63,10 @@ function handleClickCloseAddChannelForm() {
   isAddChannelFormVisible.value = false;
 }
 
+function handleClickToggleChannels() {
+  isChannelsListVisible.value = !isChannelsListVisible.value;
+}
+
 socket.auth = { username: userId.value };
 socket.connect();
 
@@ -61,3 +77,10 @@ if (!!userId.value)
     store.fetchLoggedUserData(userId.value),
   ]);
 </script>
+
+<style scoped>
+.is-visible {
+  left: 0;
+  z-index: 5;
+}
+</style>
