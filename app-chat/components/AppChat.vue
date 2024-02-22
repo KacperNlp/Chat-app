@@ -1,6 +1,10 @@
 <template>
   <section class="grow">
-    <div class="h-full overflow-y-scroll bg-gray-100 mt-2 p-4">
+    <div
+      class="overflow-y-scroll bg-gray-100 mt-2 p-4 duration-150"
+      :style="{ height: chatHeight }"
+      ref="chatRef"
+    >
       <div
         v-for="({ username, message, userId }, key) in messages"
         :key="key"
@@ -21,11 +25,22 @@ import type { ChatMessage } from "@/types/types";
 
 interface Props {
   messages: ChatMessage[];
+  chatHeight: string;
 }
 
 const store = useWebsiteStore();
 
 defineProps<Props>();
+
+const chatRef = ref<HTMLDivElement | null>(null);
+
+onMounted(() => {
+  if (chatRef.value) {
+    setTimeout(() => {
+      if (chatRef.value) chatRef.value.scrollTop = chatRef.value.scrollHeight;
+    }, 100);
+  }
+});
 
 function isLoggedUser(messageUserId: string) {
   return messageUserId === store.loggedUser.id;

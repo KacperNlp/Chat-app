@@ -1,10 +1,10 @@
 <template>
   <div class="h-full flex flex-col">
-    <AppPageTitle class="text-center pt-2">{{
+    <AppPageTitle class="text-center pt-2" ref="channelTitle">{{
       currentChannelName
     }}</AppPageTitle>
-    <AppChat :messages="messages" />
-    <div>
+    <AppChat :messages="messages" :chatHeight="channelHeight" />
+    <div ref="messageInput">
       <el-input v-model="message" :placeholder="$t('channel.input')">
         <template #append>
           <el-button :icon="DArrowRight" @click="handleClickSendMessage" />
@@ -20,12 +20,16 @@ import { DArrowRight } from "@element-plus/icons-vue";
 import ChannelManager from "@/services/ChannelManager";
 import type { ChatMessage } from "@/types/types";
 
+const FOOTER_HEIGHT = 48;
+
 const router = useRouter();
 const userId = useCookie("userId");
 const store = useWebsiteStore();
 
 const message = ref("");
 const messages = ref<ChatMessage[]>([]);
+const channelTitle = ref<HTMLElement | null>(null);
+const messageInput = ref<HTMLDivElement | null>(null);
 
 const data = {
   roomId: router.currentRoute.value.params.id as string,
@@ -39,6 +43,18 @@ const currentChannelName = computed(() => {
   );
 
   return currentChannel?.name;
+});
+
+const channelHeight = computed(() => {
+  const channelTitleHeight = channelTitle.value?.$el.clientHeight;
+  const messageInputHeight = messageInput.value?.clientHeight;
+
+  if (!channelTitleHeight || !messageInputHeight) return "100%";
+
+  const height =
+    window.innerHeight -
+    (channelTitleHeight + messageInputHeight + FOOTER_HEIGHT);
+  return `${height}px`;
 });
 
 socket.on("receive-message", ({ message, username, userId }) => {
