@@ -1,9 +1,11 @@
 <template>
   <div class="h-full flex flex-col">
-    <AppPageTitle class="text-center pt-2">Nazwa kanału</AppPageTitle>
+    <AppPageTitle class="text-center pt-2">{{
+      currentChannelName
+    }}</AppPageTitle>
     <AppChat :messages="messages" />
     <div>
-      <el-input v-model="message" placeholder="Your message...">
+      <el-input v-model="message" :placeholder="$t('channel.input')">
         <template #append>
           <el-button :icon="DArrowRight" @click="handleClickSendMessage" />
         </template>
@@ -30,6 +32,14 @@ const data = {
   userId: userId.value as string,
   username: store.loggedUser.username,
 };
+
+const currentChannelName = computed(() => {
+  const currentChannel = store.channels.find(
+    (channel) => channel._id === data.roomId
+  );
+
+  return currentChannel?.name;
+});
 
 socket.on("receive-message", ({ message, username, userId }) => {
   const newMessage = {
@@ -65,6 +75,5 @@ function handleClickSendMessage() {
 }
 
 joinRoom();
-console.log(await ChannelManager.getMessages(data.roomId));
 messages.value = await ChannelManager.getMessages(data.roomId);
 </script>

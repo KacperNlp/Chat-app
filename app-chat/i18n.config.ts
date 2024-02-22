@@ -26,6 +26,9 @@ export default defineI18nConfig(() => ({
                     btnSettings: 'Ustawienia kanału',
                     btn: 'Wejdź do chatu'
                 }
+            },
+            channel: {
+                input: 'Wyślij wiadomość...'
             }
         },
         en: {
@@ -52,6 +55,9 @@ export default defineI18nConfig(() => ({
                     btnSettings: 'Channel settings',
                     btn: 'Open the chat'
                 }
+            },
+            channel: {
+                input: 'Send message...'
             }
         }
     }
