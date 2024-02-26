@@ -32,9 +32,11 @@ class ChannelRepository {
 
   async setMessage(newMessage, roomId) {
     const channel = await this.model.findById(roomId);
+    const messageDate = new Date();
+    const message = { ...newMessage, date: messageDate };
 
     if (channel) {
-      channel.messages.push(newMessage);
+      channel.messages.push(message);
 
       await channel.save();
     }

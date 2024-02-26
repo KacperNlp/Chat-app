@@ -18,7 +18,7 @@
         </el-footer>
       </div>
     </div>
-    <AddChannelForm
+    <AppChannelForm
       v-if="isAddChannelFormVisible"
       @close-form="handleClickCloseAddChannelForm"
     />
