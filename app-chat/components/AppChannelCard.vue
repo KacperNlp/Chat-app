@@ -1,10 +1,12 @@
 <template>
   <div
     @click.prevent="handleClickOpenChannel"
-    :class="{ 'is-active': isSelectedChannel }"
-    class="p-4 border-b cursor-pointer duration-200"
+    class="p-4 border-b border-gray-700 text-gray-200 cursor-pointer"
   >
-    <div class="relative flex flex-row items-center gap-4">
+    <div
+      class="relative flex flex-row items-center gap-4 opacity-25 duration-200"
+      :class="{ 'is-active': isSelectedChannel }"
+    >
       <img
         src="/assets/first-post.jpg"
         :alt="name"
@@ -59,6 +61,6 @@ function handleClickOpenChannel() {
 }
 
 .is-active {
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+  opacity: 1;
 }
 </style>

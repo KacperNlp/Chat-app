@@ -1,19 +1,28 @@
 <template>
   <section class="grow">
     <div
-      class="overflow-y-scroll bg-gray-100 mt-2 p-4 duration-150"
+      class="overflow-y-scroll bg-gray-700 mt-2 p-4 duration-150"
       :style="{ height: chatHeight }"
       ref="chatRef"
     >
       <div
-        v-for="({ username, message, userId }, key) in messages"
+        v-for="({ username, message }, key) in messages"
         :key="key"
-        :class="{ 'is-logged-user': isLoggedUser(userId) }"
-        class="my-4"
+        class="flex items-center gap-4 my-4 border-t border-gray-500 pt-3"
       >
-        <div class="message inline-block rounded-md bg-slate-200 p-2 text-sm">
-          <span v-if="!isLoggedUser(userId)">{{ username }}: </span>
-          <span>{{ message }}</span>
+        <div>
+          <el-avatar
+            class="mr-3"
+            :size="64"
+            src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+          />
+        </div>
+        <div class="flex flex-col text-gray-100">
+          <div class="mb-2">
+            <span class="text-xl">{{ username }}</span>
+            <span class="ml-2 text-xs">22.03.2024</span>
+          </div>
+          <span class="text-sm">{{ message }}</span>
         </div>
       </div>
     </div>
@@ -30,7 +39,8 @@ interface Props {
 
 const store = useWebsiteStore();
 
-defineProps<Props>();
+const props = defineProps<Props>();
+console.log(props.messages);
 
 const chatRef = ref<HTMLDivElement | null>(null);
 
@@ -41,18 +51,4 @@ onMounted(() => {
     }, 100);
   }
 });
-
-function isLoggedUser(messageUserId: string) {
-  return messageUserId === store.loggedUser.id;
-}
 </script>
-
-<style lang="scss" scoped>
-.is-logged-user {
-  text-align: right;
-
-  .message {
-    background: #ddd;
-  }
-}
-</style>

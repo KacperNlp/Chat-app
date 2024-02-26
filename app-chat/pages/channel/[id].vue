@@ -1,10 +1,10 @@
 <template>
-  <div class="h-full flex flex-col">
+  <div class="h-full flex flex-col bg-slate-600 text-gray-100">
     <AppPageTitle class="text-center pt-2" ref="channelTitle">{{
       currentChannelName
     }}</AppPageTitle>
     <AppChat :messages="messages" :chatHeight="channelHeight" />
-    <div ref="messageInput">
+    <div ref="messageInput" class="w-10/12 mx-auto py-4">
       <el-input v-model="message" :placeholder="$t('channel.input')">
         <template #append>
           <el-button :icon="DArrowRight" @click="handleClickSendMessage" />
@@ -20,7 +20,7 @@ import { DArrowRight } from "@element-plus/icons-vue";
 import ChannelManager from "@/services/ChannelManager";
 import type { ChatMessage } from "@/types/types";
 
-const FOOTER_HEIGHT = 48;
+const FOOTER_HEIGHT = 100;
 
 const router = useRouter();
 const userId = useCookie("userId");
