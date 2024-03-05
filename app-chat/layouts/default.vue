@@ -1,21 +1,10 @@
 <template>
   <el-container class="h-screen overflow-hidden">
     <div class="flex flex-row w-full">
-      <aside
-        class="fixed left-[-100%] md:relative md:left-0 h-full w-80 overflow-y-scroll duration-300 bg-gray-800"
-        :class="{ 'is-visible': isChannelsListVisible }"
-      >
-        <AppChannelList />
-      </aside>
       <div class="grow flex flex-col max-h-dvh">
         <main class="grow">
           <slot />
         </main>
-        <el-footer
-          class="flex items-center justify-center !h-24 bg-slate-700 text-xs text-gray-100"
-        >
-          <AppFooter />
-        </el-footer>
       </div>
     </div>
     <AppChannelForm

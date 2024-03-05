@@ -1,5 +1,9 @@
 <template>
   <div class="h-full flex items-center justify-center">
-    <span class="text-lg md:text-xl text-gray-400">{{ $t("home.title") }}</span>
+    <section></section>
   </div>
 </template>
+
+<script setup lang="ts">
+const filter = ref("");
+</script>

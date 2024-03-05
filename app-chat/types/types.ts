@@ -1,9 +1,4 @@
-enum FieldTypes {
-    Username = 'username',
-    Email = 'email',
-    Password = 'password',
-    PasswordRepeat = 'passwordRepeat',
-}
+import { FieldTypes } from "@/enums/enums";
 
 interface ChannelInterface {
     _id: string
