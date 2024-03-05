@@ -1,32 +1,42 @@
 <template>
   <div
     @click.prevent="handleClickOpenChannel"
-    class="p-4 border-b border-gray-700 text-gray-200 cursor-pointer"
+    class="text-gray-200 cursor-pointer"
   >
     <div
-      class="relative flex flex-row items-center gap-4 opacity-25 duration-200"
+      class="relative flex flex-row items-center gap-6 duration-200"
       :class="{ 'is-active': isSelectedChannel }"
     >
-      <img
-        src="/assets/first-post.jpg"
-        :alt="name"
-        class="w-12 h-12 rounded-xl"
-      />
-      <div>
-        <span class="block font-semibold text-md md:text-lg xl:text-xl">
+      <div class="relative min-w-20 max-w-20">
+        <img
+          src="/assets/first-post.jpg"
+          :alt="name"
+          class="w-full h-20 rounded-2xl"
+        />
+        <!-- If any user is online on chat -->
+        <span
+          class="absolute bottom-[-2px] right-[-2px] border-2 border-gray-50 bg-lime-500 rounded-full w-5 h-5"
+        ></span>
+      </div>
+      <div class="text-fontColor-100 max-w-[80%] truncate">
+        <span class="block font-semibold text-lg md:text-xl">
           {{ name }}
         </span>
-        <span class="text-xs">Users: {{ numberOfUsers }}</span>
+        <span class="text-xs"
+          >Last message example hello there hello there example dsfg dsfg
+          dsfgdsfgdsgf</span
+        >
+        <span class="flex items-center gap-1 absolute top-0 right-0 text-xs"
+          ><el-icon><User /></el-icon> {{ numberOfUsers }}</span
+        >
       </div>
-      <div
-        class="absolute top-0 right-0 w-4 h-4 rounded-lg"
-        :style="`background-color: ${color}`"
-      ></div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { User } from "@element-plus/icons-vue";
+
 interface Props {
   name: string;
   users: string[];

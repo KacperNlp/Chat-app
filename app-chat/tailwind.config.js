@@ -14,6 +14,10 @@ export default {
         primary: {
           100: "#409EFF",
           200: "#3a8cde",
+          300: "#1E68D7",
+        },
+        fontColor: {
+          100: "#1E1E1E",
         },
       },
     },

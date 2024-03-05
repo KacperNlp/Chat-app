@@ -1,5 +1,5 @@
 <template>
-  <el-container class="h-screen overflow-hidden">
+  <el-container class="overflow-x-hidden">
     <div class="flex flex-row w-full">
       <div class="grow flex flex-col max-h-dvh">
         <main class="grow">
