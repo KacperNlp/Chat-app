@@ -7,58 +7,18 @@
         </main>
       </div>
     </div>
-    <AppChannelForm
-      v-if="isAddChannelFormVisible"
-      @close-form="handleClickCloseAddChannelForm"
-    />
-    <div class="fixed bottom-6 right-2 md:right-8 z-[99]">
-      <el-button
-        @click="handleClickOpenAddChannelForm"
-        class="!text-xl"
-        type="primary"
-        :icon="ChatRound"
-        size="large"
-        circle
-      />
-    </div>
-    <div class="fixed md:!hidden bottom-6 left-2 z-[99]">
-      <el-button
-        @click="handleClickToggleChannels"
-        class="!text-xl"
-        type="primary"
-        :icon="Expand"
-        size="large"
-        circle
-      />
-    </div>
   </el-container>
 </template>
 
 <script setup lang="ts">
-import { ChatRound, Expand } from "@element-plus/icons-vue";
 import socket from "~/socket.io";
 
 const userId = useCookie("userId");
 const store = useWebsiteStore();
 
-const isAddChannelFormVisible = ref(false);
-const isChannelsListVisible = ref(false);
-
 onBeforeUnmount(() => {
   socket.disconnect();
 });
-
-function handleClickOpenAddChannelForm() {
-  isAddChannelFormVisible.value = true;
-}
-
-function handleClickCloseAddChannelForm() {
-  isAddChannelFormVisible.value = false;
-}
-
-function handleClickToggleChannels() {
-  isChannelsListVisible.value = !isChannelsListVisible.value;
-}
 
 socket.auth = { username: userId.value };
 socket.connect();
@@ -70,10 +30,3 @@ if (!!userId.value)
     store.fetchLoggedUserData(userId.value),
   ]);
 </script>
-
-<style scoped>
-.is-visible {
-  left: 0;
-  z-index: 5;
-}
-</style>
