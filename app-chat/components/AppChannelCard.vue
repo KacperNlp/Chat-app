@@ -11,7 +11,7 @@
         <img
           src="/assets/first-post.jpg"
           :alt="name"
-          class="w-full h-20 rounded-2xl"
+          class="w-full h-20 rounded-2xl object-cover"
         />
         <!-- If any user is online on chat -->
         <span
