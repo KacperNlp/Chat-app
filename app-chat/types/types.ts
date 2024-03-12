@@ -3,7 +3,7 @@ import { FieldTypes } from "@/enums/enums";
 interface ChannelInterface {
     _id: string
     name: string;
-    color: string,
+    img: File,
     author: string,
     addedUsers: string[]
 }
@@ -15,9 +15,9 @@ interface NewTaskInterface {
 
 interface NewChannelInterface {
     name: string,
-    color: string,
     author: string,
-    addedUsers: string[]
+    addedUsers: string[],
+    img: File | null
 }
 
 interface User {

@@ -18,7 +18,7 @@ export default defineI18nConfig(() => ({
                 title: 'Musisz wybrać kanał',
                 form: {
                     name: 'Nazwa kanału',
-                    color: 'Wybierz kolor kanału',
+                    img: 'Dodaj zdjecie',
                     users: 'Dodaj użytkowników do kanału',
                     btn: 'Stwórz kanał!'
                 },
@@ -47,7 +47,7 @@ export default defineI18nConfig(() => ({
                 title: 'You have to choose channel',
                 form: {
                     name: 'Channel name',
-                    color: 'Pick the color of channel',
+                    img: 'Add image',
                     users: 'Add users to channel',
                     btn: 'Create channel!'
                 },

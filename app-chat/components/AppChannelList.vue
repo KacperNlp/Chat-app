@@ -3,7 +3,7 @@
     <div v-for="channel in store.channels">
       <AppChannelCard
         :name="channel.name"
-        :color="channel.color"
+        :img="channel.img"
         :users="channel.addedUsers"
         :author-id="channel.author"
         :id="channel._id"

@@ -6,8 +6,8 @@ const channelSchema = new Schema({
   name: {
     type: String,
   },
-  color: {
-    type: String,
+  img: {
+    type: Buffer,
   },
   author: {
     type: String,

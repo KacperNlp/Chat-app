@@ -6,9 +6,7 @@
         <el-form-item :label="$t('home.form.name')">
           <el-input v-model="channelForm.name" />
         </el-form-item>
-        <el-form-item :label="$t('home.form.color')">
-          <el-input v-model="channelForm.color" type="color" />
-        </el-form-item>
+        <AppImgUploader @imgUpload="handleUpdateImg" />
         <el-form-item :label="$t('home.form.users')">
           <el-select
             v-model="channelForm.addedUsers"
@@ -41,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { reactive, computed } from "vue";
 import ServerManager from "@/services/ServerManager";
 import { Close } from "@element-plus/icons-vue";
 import type { NewChannelInterface } from "@/types/types";
@@ -51,11 +49,11 @@ const userId = useCookie("userId");
 
 const emit = defineEmits(["closeForm"]);
 
-const channelForm = ref<NewChannelInterface>({
+const channelForm = reactive<NewChannelInterface>({
   name: "",
-  color: "#000000",
   author: userId.value as string,
   addedUsers: [],
+  img: null,
 });
 
 const usersList = computed(() => {
@@ -64,11 +62,11 @@ const usersList = computed(() => {
 
 async function handleSubmitCreateNewChannel() {
   try {
-    await ServerManager.addNewChannel(channelForm.value);
+    await ServerManager.addNewChannel(channelForm);
     if (!!userId.value) await store.fetchChannelsList(userId.value);
-    channelForm.value.name = "";
-    channelForm.value.color = "#000000";
-    channelForm.value.addedUsers = [];
+    channelForm.name = "";
+    channelForm.addedUsers = [];
+    channelForm.img = null;
     emit("closeForm");
   } catch {
     alert("Something goes wrong!");
@@ -77,5 +75,9 @@ async function handleSubmitCreateNewChannel() {
 
 function handleClickCloseFrom() {
   emit("closeForm");
+}
+
+function handleUpdateImg(value: File) {
+  channelForm.img = value;
 }
 </script>

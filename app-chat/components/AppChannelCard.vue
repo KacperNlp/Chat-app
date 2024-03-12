@@ -9,7 +9,7 @@
     >
       <div class="relative min-w-20 max-w-20">
         <img
-          src="/assets/first-post.jpg"
+          :src="channelImg"
           :alt="name"
           class="w-full h-20 rounded-2xl object-cover"
         />
@@ -41,7 +41,7 @@ interface Props {
   name: string;
   users: string[];
   authorId: string;
-  color: string;
+  img: File | null;
   id: string;
 }
 
@@ -55,6 +55,12 @@ const isUserChannel = computed(() => props.authorId === userId.value);
 const isSelectedChannel = computed(
   () => props.id === router.currentRoute.value.params.id
 );
+const channelImg = computed(() => {
+  if (!props.img) return "/placeholder.jpg";
+
+  const url = URL.createObjectURL(props.img);
+  return url;
+});
 
 function handleClickOpenChannelSettings() {
   navigateTo(`/channel/edit/${props.id}`);
