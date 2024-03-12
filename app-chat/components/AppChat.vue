@@ -7,23 +7,33 @@
     >
       <div class="flex flex-col">
         <div
-          v-for="({ username, message, date }, key) in messages"
+          v-for="({ username, message, date, userId }, key) in messages"
           :key="key"
-          class="flex items-center gap-4 my-4 pt-3"
+          class="flex items-center gap-2 md:gap-4 my-2 pt-2"
+          :class="{ 'is-logged-user': isUserAuthorOfThisMessage(userId) }"
         >
-          <div>
+          <div class="h-full flex flex-col justify-center gap-1 text-center">
             <el-avatar
-              class="mr-3"
               :size="isMobile"
               src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
             />
           </div>
           <div class="flex flex-col text-gray-700">
-            <div class="mb-2">
-              <span class="text-lg md:text-xl">{{ username }}</span>
-              <span class="ml-2 text-xs">{{ messageDateFormat(date) }}</span>
+            <div class="mb-1" v-if="!isUserAuthorOfThisMessage(userId)">
+              <span class="text-xs md:text-base text-gray-400">{{
+                username
+              }}</span>
+              <!-- <span class="ml-2 text-xs">{{ messageDateFormat(date) }}</span> -->
             </div>
-            <span class="text-sm">{{ message }}</span>
+            <div
+              class="bg-gray-100 px-6 py-2 rounded-xl text-left"
+              :class="{
+                'bg-primary-300': isUserAuthorOfThisMessage(userId),
+                'text-gray-50': isUserAuthorOfThisMessage(userId),
+              }"
+            >
+              <span class="text-sm">{{ message }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -47,7 +57,6 @@ const store = useWebsiteStore();
 defineProps<Props>();
 
 const chatRef = ref<HTMLDivElement | null>(null);
-
 const isMobile = ref(MOBILE_AVATAR_SIZE);
 
 onMounted(() => {
@@ -61,14 +70,26 @@ onMounted(() => {
     window.innerWidth <= 760 ? MOBILE_AVATAR_SIZE : DESKTOP_AVATAR_SIZE;
 });
 
+function isUserAuthorOfThisMessage(messageAuthorId: string) {
+  return messageAuthorId === store.loggedUser.id;
+}
+
 function messageDateFormat(messageDate: Date) {
   if (!messageDate) return null;
 
   const date = new Date(messageDate);
+  const monthValue = date.getMonth() + 1;
 
   const day = date.getDate() <= 9 ? `0${date.getDate()}` : date.getDate();
-  const month = date.getMonth() <= 9 ? `0${date.getMonth()}` : date.getMonth();
+  const month = monthValue <= 9 ? `0${monthValue}` : monthValue;
 
   return `${day}.${month}.${date.getFullYear()}`;
 }
 </script>
+
+<style lang="scss">
+.is-logged-user {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+</style>

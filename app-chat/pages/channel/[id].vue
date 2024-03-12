@@ -82,20 +82,18 @@ const channelHeight = computed(() => {
   const channelTitleHeight = channelTitle.value?.clientHeight;
   const messageInputHeight = messageInput.value?.clientHeight;
 
-  console.log(channelTitleHeight);
-  console.log(messageInputHeight);
-
   if (!channelTitleHeight || !messageInputHeight) return "100%";
 
   const height = window.innerHeight - (channelTitleHeight + messageInputHeight);
   return `${height}px`;
 });
 
-socket.on("receive-message", ({ message, username, userId }) => {
+socket.on("receive-message", ({ message, username, userId, date }) => {
   const newMessage = {
     username,
     userId,
     message,
+    date,
   };
 
   messages.value.push(newMessage);
@@ -110,10 +108,12 @@ function joinRoom() {
 }
 
 function handleClickSendMessage() {
+  const newMessageDate = new Date();
   const newMessage = {
     userId: data.userId,
     username: data.username,
     message: message.value,
+    date: newMessageDate,
   };
 
   if (!message.value) return;
