@@ -1,6 +1,11 @@
 <template>
-  <div class="h-full flex flex-col bg-gray-50">
-    <section class="flex items-center justify-between px-6 py-4">
+  <div
+    class="max-h-screen min-h-screen overflow-hidden flex flex-col bg-gray-50"
+  >
+    <section
+      ref="channelTitle"
+      class="flex items-center justify-between px-6 py-4"
+    >
       <div class="flex items-center justify-between gap-4">
         <button @click="handleClickGoBack" class="text-lg text-primary-300">
           <el-icon><ArrowLeft /></el-icon>
@@ -27,21 +32,27 @@
       </button>
     </section>
     <AppChat :messages="messages" :chatHeight="channelHeight" />
-    <div ref="messageInput" class="w-10/12 mx-auto py-4">
-      <el-input v-model="message" :placeholder="$t('channel.input')">
-        <template #append>
-          <el-button :icon="DArrowRight" @click="handleClickSendMessage" />
-        </template>
-      </el-input>
+    <div ref="messageInput" class="flex justify-center w-10/12 mx-auto py-4">
+      <input
+        v-model="message"
+        type="text"
+        class="py-2 px-4 w-full rounded-lg bg-salt-50 outline-transparent duration-200"
+        :placeholder="$t('channel.input')"
+      />
+      <button
+        @click="handleClickSendMessage"
+        class="text-xl text-primary-300 ml-4"
+      >
+        <el-icon><CaretRight /></el-icon>
+      </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import socket from "~/socket.io";
-import { DArrowRight } from "@element-plus/icons-vue";
 import ChannelManager from "@/services/ChannelManager";
-import { ArrowLeft, Phone } from "@element-plus/icons-vue";
+import { ArrowLeft, Phone, CaretRight } from "@element-plus/icons-vue";
 import type { ChatMessage } from "@/types/types";
 
 const router = useRouter();
@@ -68,8 +79,11 @@ const currentChannel = computed(() => {
 });
 
 const channelHeight = computed(() => {
-  const channelTitleHeight = channelTitle.value?.$el.clientHeight;
+  const channelTitleHeight = channelTitle.value?.clientHeight;
   const messageInputHeight = messageInput.value?.clientHeight;
+
+  console.log(channelTitleHeight);
+  console.log(messageInputHeight);
 
   if (!channelTitleHeight || !messageInputHeight) return "100%";
 
