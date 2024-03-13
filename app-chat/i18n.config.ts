@@ -16,6 +16,7 @@ export default defineI18nConfig(() => ({
             },
             home: {
                 title: 'Musisz wybrać kanał',
+                search: "Szukaj kanału:",
                 form: {
                     name: 'Nazwa kanału',
                     img: 'Dodaj zdjecie',
@@ -45,6 +46,7 @@ export default defineI18nConfig(() => ({
             },
             home: {
                 title: 'You have to choose channel',
+                search: "Search channel:",
                 form: {
                     name: 'Channel name',
                     img: 'Add image',

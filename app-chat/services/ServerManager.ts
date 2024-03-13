@@ -13,6 +13,8 @@ export default abstract class ServerManager {
 
     static async addNewChannel(newChannel: NewChannelInterface) {
         const config = useRuntimeConfig();
+        console.log(newChannel.img)
+        console.log(newChannel)
         return await axios.post(`${config.public.apiURL}/channels`, newChannel);
     }
 

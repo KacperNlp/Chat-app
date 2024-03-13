@@ -12,7 +12,7 @@
         </button>
         <div class="flex items-center justify-between gap-3">
           <img
-            src="/assets/first-post.jpg"
+            src="/placeholder.jpg"
             :alt="currentChannel.name"
             class="w-11 h-11 rounded-2xl object-cover"
           />

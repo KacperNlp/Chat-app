@@ -28,9 +28,10 @@ interface User {
 }
 
 interface StoreState {
-    channels: ChannelInterface[]
-    loggedUser: User
-    users: User[]
+    channels: ChannelInterface[],
+    loggedUser: User,
+    users: User[],
+    searchValue: string
 }
 
 interface RegisterForm {

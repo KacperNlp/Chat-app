@@ -1,4 +1,6 @@
 const express = require("express");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 const app = express.Router();
 const repository = require("../repositories/ChannelRepository");
@@ -14,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 // create new channel
-app.post("/", (req, res) => {
+app.post("/", upload.single("img"), (req, res) => {
   repository
     .create(req.body)
     .then((channel) => {

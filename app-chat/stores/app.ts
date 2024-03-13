@@ -12,8 +12,18 @@ export const useWebsiteStore = defineStore('websiteStore', {
             role: '',
             id: ''
         },
-        users: []
+        users: [],
+        searchValue: ''
     }),
+
+    getters: {
+        filteredChannels: ({ searchValue, channels }) => {
+            if(!searchValue) return channels;
+
+            const channelsAfterFilters = channels.filter(channel => channel.name.includes(searchValue));
+            return channelsAfterFilters;
+        }
+    },
 
     actions: {
         async fetchChannelsList(userId: string) {
@@ -29,6 +39,10 @@ export const useWebsiteStore = defineStore('websiteStore', {
         async fetchAllUsers() {
             const { data } = await UsersManager.getAllUsers();
             this.users = data;
+        },
+
+        updateSearchValue(newValue: string) {
+            this.searchValue = newValue;
         }
     }
 })

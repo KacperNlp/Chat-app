@@ -7,9 +7,19 @@
       >
         <el-icon><CirclePlus /></el-icon>
       </button>
-      <button class="flex items-center text-primary-300 text-xl">
-        <el-icon><Search /></el-icon>
-      </button>
+      <div class="flex gap-3">
+        <el-button
+          v-if="isChannelFiltersApplied"
+          @click="handleClickClearFilters"
+          >Clear</el-button
+        >
+        <button
+          @click="handleClickOpenChannelSearch"
+          class="flex items-center text-primary-300 text-xl"
+        >
+          <el-icon><Search /></el-icon>
+        </button>
+      </div>
     </section>
     <section class="w-full overflow-x-hidden flex flex-row gap-4 my-4 pl-4">
       <div
@@ -33,7 +43,11 @@
     <section class="max-w-[100vw] px-4 pt-8 pb-12"><AppChannelList /></section>
     <AppChannelForm
       v-if="isAddChannelFormVisible"
-      @close-form="handleClickCloseAddChannelForm"
+      @closeForm="handleClickCloseAddChannelForm"
+    />
+    <AppSearchValue
+      v-if="isSearchChannelVisible"
+      @closeSearch="handleClickCloseChannelSearch"
     />
   </div>
 </template>
@@ -42,8 +56,13 @@
 import { Search, CirclePlus } from "@element-plus/icons-vue";
 import { FilterTypes } from "@/enums/enums";
 
+const store = useWebsiteStore();
+
 const selectedFilter = ref<FilterTypes>(FilterTypes.All);
 const isAddChannelFormVisible = ref(false);
+const isSearchChannelVisible = ref(false);
+
+const isChannelFiltersApplied = computed(() => !!store.searchValue);
 
 function isFilterSelected(filterType: FilterTypes) {
   return selectedFilter.value === filterType;
@@ -55,6 +74,18 @@ function handleClickOpenAddChannelForm() {
 
 function handleClickCloseAddChannelForm() {
   isAddChannelFormVisible.value = false;
+}
+
+function handleClickOpenChannelSearch() {
+  isSearchChannelVisible.value = true;
+}
+
+function handleClickCloseChannelSearch() {
+  isSearchChannelVisible.value = false;
+}
+
+function handleClickClearFilters() {
+  store.updateSearchValue("");
 }
 </script>
 

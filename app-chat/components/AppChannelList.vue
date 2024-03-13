@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-8">
-    <div v-for="channel in store.channels">
+    <div v-for="channel in store.filteredChannels">
       <AppChannelCard
         :name="channel.name"
         :img="channel.img"
