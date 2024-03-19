@@ -22,10 +22,7 @@
         <span class="block font-semibold text-lg md:text-xl">
           {{ name }}
         </span>
-        <span class="text-xs"
-          >Last message example hello there hello there example dsfg dsfg
-          dsfgdsfgdsgf</span
-        >
+        <span class="text-xs">{{ getLastMessage }}</span>
         <span class="flex items-center gap-1 absolute top-0 right-0 text-xs"
           ><el-icon><User /></el-icon> {{ numberOfUsers }}</span
         >
@@ -36,6 +33,7 @@
 
 <script setup lang="ts">
 import { User } from "@element-plus/icons-vue";
+import type { ChatMessage } from "@/types/types";
 
 interface Props {
   name: string;
@@ -43,6 +41,7 @@ interface Props {
   authorId: string;
   img: File | null;
   id: string;
+  lastMessage: ChatMessage;
 }
 
 const userId = useCookie("userId");
@@ -61,6 +60,11 @@ const channelImg = computed(() => {
   const url = URL.createObjectURL(props.img);
   return url;
 });
+const getLastMessage = computed(() =>
+  !!props.lastMessage
+    ? `${props.lastMessage.username}: ${props.lastMessage.message}`
+    : "No messages..."
+);
 
 function handleClickOpenChannelSettings() {
   navigateTo(`/channel/edit/${props.id}`);

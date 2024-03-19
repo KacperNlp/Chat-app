@@ -1,7 +1,7 @@
 import ServerManager from '~/services/ServerManager';
 import UserManager from '@/services/UserManager';
 import UsersManager from '~/services/UsersManager';
-import type { StoreState } from '@/types/types';
+import type { StoreState, ChatMessage } from '@/types/types';
 
 export const useWebsiteStore = defineStore('websiteStore', {
     state: (): StoreState => ({
@@ -18,7 +18,21 @@ export const useWebsiteStore = defineStore('websiteStore', {
 
     getters: {
         filteredChannels: ({ searchValue, channels }) => {
+            channels.sort((channelA, channelB) => {
+                if(!channelA.lastMessage && !channelB.lastMessage) 
+                    return 0;
+
+                if (!channelA.lastMessage) 
+                    return 1
+
+                if (!channelB.lastMessage) 
+                    return -1
+
+                return new Date(channelB.lastMessage.date).getTime() - new Date(channelA.lastMessage.date).getTime();
+            })
+
             if(!searchValue) return channels;
+
 
             const channelsAfterFilters = channels.filter(channel => channel.name.includes(searchValue));
             return channelsAfterFilters;
@@ -43,6 +57,14 @@ export const useWebsiteStore = defineStore('websiteStore', {
 
         updateSearchValue(newValue: string) {
             this.searchValue = newValue;
+        },
+
+        updateChannelLastMessage(newMessage: ChatMessage, roomId: string) {
+            this.channels.forEach(channel => {
+                if(channel._id === roomId) channel.lastMessage = newMessage;
+
+                return channel;
+            })
         }
     }
 })

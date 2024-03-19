@@ -53,6 +53,7 @@
 </template>
 
 <script setup lang="ts">
+import socket from "~/socket.io";
 import { Search, CirclePlus } from "@element-plus/icons-vue";
 import { FilterTypes } from "@/enums/enums";
 
@@ -63,6 +64,17 @@ const isAddChannelFormVisible = ref(false);
 const isSearchChannelVisible = ref(false);
 
 const isChannelFiltersApplied = computed(() => !!store.searchValue);
+
+socket.on("get-new-message", ({ message, userId, username, date, roomId }) => {
+  const newMessage = {
+    message,
+    userId,
+    username,
+    date,
+  };
+
+  store.updateChannelLastMessage(newMessage, roomId);
+});
 
 function isFilterSelected(filterType: FilterTypes) {
   return selectedFilter.value === filterType;

@@ -84,10 +84,12 @@ io.on("connection", function (socket) {
   });
 
   socket.on("send-message", ({ message, userId, username, roomId }) => {
-    const newMessage = { message, userId, username };
+    const date = new Date();
+    const newMessage = { message, userId, username, date };
 
     channelRepository.setMessage(newMessage, roomId);
     socket.to(roomId).emit("receive-message", newMessage);
+    io.emit("get-new-message", { ...newMessage, roomId });
   });
 
   socket.on("disconnect", () => {

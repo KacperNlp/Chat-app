@@ -20,7 +20,17 @@ class ChannelRepository {
         channel.author === userId || channel.addedUsers.includes(userId)
     );
 
-    return channels;
+    const channelsList = channels.map(
+      ({ _id, author, addedUsers, name, messages }) => ({
+        _id,
+        author,
+        addedUsers,
+        name,
+        lastMessage: messages.slice(-1)[0],
+      })
+    );
+
+    return channelsList;
   }
 
   async getAllMessagesForChannel(req) {
@@ -32,11 +42,9 @@ class ChannelRepository {
 
   async setMessage(newMessage, roomId) {
     const channel = await this.model.findById(roomId);
-    const messageDate = new Date();
-    const message = { ...newMessage, date: messageDate };
 
     if (channel) {
-      channel.messages.push(message);
+      channel.messages.push(newMessage);
 
       await channel.save();
     }

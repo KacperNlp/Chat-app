@@ -7,6 +7,7 @@
         :users="channel.addedUsers"
         :author-id="channel.author"
         :id="channel._id"
+        :lastMessage="channel.lastMessage"
       />
     </div>
   </div>

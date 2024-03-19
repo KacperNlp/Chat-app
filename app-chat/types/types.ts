@@ -5,7 +5,8 @@ interface ChannelInterface {
     name: string;
     img: File,
     author: string,
-    addedUsers: string[]
+    addedUsers: string[],
+    lastMessage: ChatMessage
 }
 
 interface NewTaskInterface {
